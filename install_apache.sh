@@ -3,7 +3,7 @@ apt update -y
 apt install -y apache2
 systemctl enable apache2
 systemctl start apache2
-echo "<!DOCTYPE html>
+echo '<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -74,11 +74,10 @@ echo "<!DOCTYPE html>
     <!-- JavaScript -->
     <script src="script.js"></script> <!-- Link to your JS file -->
 </body>
-</html>
-" > /var/www/html/index.html
+</html>' > /var/www/html/index.html
 
-echo "// Base URL of the API
-const apiUrl = 'http://localhost:5000/';
+echo '// Base URL of the API
+const apiUrl = "http://localhost:5000/";
 
 // Function to fetch all products
 function fetchProducts() {
@@ -87,7 +86,7 @@ function fetchProducts() {
         .then(data => {
             displayProducts(data);
         })
-        .catch(error => console.error('Error fetching products:', error));
+        .catch(error => console.error("Error fetching products:", error));
 }
 
 // Function to fetch details of a single product
@@ -97,7 +96,7 @@ function fetchProductDetails(productId) {
         .then(data => {
             displayProductDetails(data);
         })
-        .catch(error => console.error('Error fetching product details:', error));
+        .catch(error => console.error("Error fetching product details:", error));
 }
 
 // Function to add a product to the cart
@@ -108,7 +107,7 @@ function addToCart(productId) {
             alert(data.message);
             updateCartDisplay(data.cart);
         })
-        .catch(error => console.error('Error adding product to cart:', error));
+        .catch(error => console.error("Error adding product to cart:", error));
 }
 
 // Function to fetch the current cart contents
@@ -118,12 +117,12 @@ function fetchCart() {
         .then(data => {
             updateCartDisplay(data);
         })
-        .catch(error => console.error('Error fetching cart:', error));
+        .catch(error => console.error("Error fetching cart:", error));
 }
 
 // Function to display products
 function displayProducts(products) {
-    const productGrid = document.querySelector('.product-grid');
+    const productGrid = document.querySelector(".product-grid");
     productGrid.innerHTML = products.map(product => `
         <div class="product-card">
             <img src="${product.image}" alt="${product.name}">
@@ -131,16 +130,16 @@ function displayProducts(products) {
             <p>$${Number(product.price).toFixed(2)}</p>
             <button class="btn add-to-cart-btn" data-id="${product.id}">Add to Cart</button>
         </div>
-    `).join('');
+    `).join("");
 
-    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-        button.addEventListener('click', () => addToCart(button.dataset.id));
+    document.querySelectorAll(".add-to-cart-btn").forEach(button => {
+        button.addEventListener("click", () => addToCart(button.dataset.id));
     });
 
     // Attach event listeners to the "Add to Cart" buttons
-    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-        button.addEventListener('click', () => {
-            const productId = button.getAttribute('data-id');
+    document.querySelectorAll(".add-to-cart-btn").forEach(button => {
+        button.addEventListener("click", () => {
+            const productId = button.getAttribute("data-id");
             addToCart(productId);
         });
     });
@@ -148,7 +147,7 @@ function displayProducts(products) {
 
 // Function to display details of a single product
 function displayProductDetails(product) {
-    const productDetailsSection = document.querySelector('.product-details');
+    const productDetailsSection = document.querySelector(".product-details");
     productDetailsSection.innerHTML = `
         <img src="${product.image}" alt="${product.name}">
         <h3>${product.name}</h3>
@@ -158,13 +157,13 @@ function displayProductDetails(product) {
     `;
 
     // Attach event listener to the "Add to Cart" button
-    document.querySelector('.add-to-cart-btn').addEventListener('click', () => {
+    document.querySelector(".add-to-cart-btn").addEventListener("click", () => {
         addToCart(product.id);
     });
 }
 
 function updateCartDisplay(cart) {
-    const cartItems = document.querySelector('.cart-items');
+    const cartItems = document.querySelector(".cart-items");
     cartItems.innerHTML = cart.length ? cart.map(item => `
         <div class="cart-item">
             <img src="${item.image}" alt="${item.name}">
@@ -172,19 +171,16 @@ function updateCartDisplay(cart) {
             <p>$${Number(item.price).toFixed(2)}</p>
             <p>Quantity: ${Number(1)}</p>
         </div>
-    `).join('') : 'Your cart is empty.';
+    `).join("") : "Your cart is empty.";
 }
 
-
-
 // Initialize the app by fetching and displaying the products
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
     fetchProducts();
     fetchCart(); // Optionally fetch and display the cart contents on page load
-});
-" > /var/www/html/script.js
+});' > /var/www/html/script.js
 
-echo "/* General Styles */
+echo '/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -237,7 +233,7 @@ body {
 
 /* Hero Section Styles */
 .hero {
-    background: url('https://images.unsplash.com/photo-1671202867630-c897313a0a22?q=80&w=1957&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
+    background: url("https://images.unsplash.com/photo-1671202867630-c897313a0a22?q=80&w=1957&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D") no-repeat center center/cover;
     height: 80vh;
     display: flex;
     align-items: center;
@@ -428,5 +424,4 @@ footer {
 
 .footer-links a:hover {
     text-decoration: underline;
-}
-" > /var/www/html/styles.css
+}' > /var/www/html/styles.css
